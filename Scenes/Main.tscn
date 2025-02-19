@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://crsoq6pjcfcgk"]
+[gd_scene load_steps=4 format=3 uid="uid://crsoq6pjcfcgk"]
 
 [ext_resource type="Texture2D" uid="uid://b68t16wnq5i4b" path="res://Assets/Background.png" id="1_1jfdm"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_tu8cd"]
 [ext_resource type="Script" path="res://Scripts/background.gd" id="1_yvk1g"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_tu8cd")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." groups=["DynamicObject"]]
 position = Vector2(0, 480)
 scale = Vector2(2, 2)
 script = ExtResource("1_yvk1g")
