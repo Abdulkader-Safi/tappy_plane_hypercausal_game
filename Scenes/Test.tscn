@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://yvlclw8rcij5"]
+
+[ext_resource type="Texture2D" uid="uid://b68t16wnq5i4b" path="res://Assets/Background.png" id="1_qlxs8"]
+[ext_resource type="Texture2D" uid="uid://idmmjp7fhs4h" path="res://Assets/Player.png" id="2_6tn31"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(800, 480)
+scale = Vector2(2, 2)
+texture = ExtResource("1_qlxs8")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(92, 414)
+texture = ExtResource("2_6tn31")
