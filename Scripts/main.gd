@@ -6,6 +6,7 @@ extends Node
 var dynamic_object_speed: int = 700
 var health_decrease: int = 3
 var spawned_object_position_x: int = 1700
+var last_obstacle_position: String
 var health: float = 100
 var score: float = 0.0
 
@@ -32,13 +33,22 @@ func _on_spawner_timer_timeout():
 
 	if random == 0:
 		obstacle_instance.position.y = 200
+		last_obstacle_position = "up"
 
 	if random == 1:
 		obstacle_instance.position.y = 800
 		obstacle_instance.rotation_degrees = 180
+		last_obstacle_position = "down"
 
 func _on_coin_timer_timeout():
 	var random_position: int = randi() % 3
+
+	if random_position == 0 and last_obstacle_position == "up":
+		return
+
+	if random_position == 2 and last_obstacle_position == "down":
+		return
+
 	var coin_instance: Area2D = coin.instantiate()
 	$Coins.add_child(coin_instance)
 	coin_instance.position.y = 280 + random_position * 200
