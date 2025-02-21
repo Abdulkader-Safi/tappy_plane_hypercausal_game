@@ -1,12 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://crsoq6pjcfcgk"]
+[gd_scene load_steps=9 format=3 uid="uid://crsoq6pjcfcgk"]
 
 [ext_resource type="Texture2D" uid="uid://b68t16wnq5i4b" path="res://Assets/Background.png" id="1_1jfdm"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tu8cd"]
 [ext_resource type="Script" path="res://Scripts/background.gd" id="1_yvk1g"]
-[ext_resource type="Texture2D" uid="uid://idmmjp7fhs4h" path="res://Assets/Player.png" id="4_pvpia"]
+[ext_resource type="PackedScene" uid="uid://bdksvhnpme8iw" path="res://Scenes/Player/Player.tscn" id="4_otvpn"]
+[ext_resource type="FontFile" uid="uid://rhpbrypeoca3" path="res://Assets/kenvector_future.ttf" id="5_eehmu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xa4nc"]
-radius = 41.0488
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uplfy"]
+size = Vector2(1600, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqjhe"]
+bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8214"]
+bg_color = Color(0.133333, 0.658824, 0.454902, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tu8cd")
@@ -24,13 +31,52 @@ texture = ExtResource("1_1jfdm")
 position = Vector2(1200, 0)
 texture = ExtResource("1_1jfdm")
 
-[node name="Player" type="RigidBody2D" parent="."]
-position = Vector2(170, 480)
-mass = 2.2
-gravity_scale = 1.6
+[node name="Player" parent="." instance=ExtResource("4_otvpn")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("4_pvpia")
+[node name="Walls" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CircleShape2D_xa4nc")
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(800, 59)
+shape = SubResource("RectangleShape2D_uplfy")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 970)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
+position = Vector2(800, 0)
+shape = SubResource("RectangleShape2D_uplfy")
+
+[node name="UI" type="Control" parent="."]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kqjhe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v8214")
+value = 60.0
+show_percentage = false
+
+[node name="ScoreLabel" type="Label" parent="UI/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_eehmu")
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
