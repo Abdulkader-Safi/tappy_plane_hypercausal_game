@@ -19,4 +19,3 @@ func _process(delta):
 	var decimal_index = formatted_score.find(".")
 	formatted_score = formatted_score.left(decimal_index + 3)
 	$UI/HealthBar/ScoreLabel.text = formatted_score
-	print(decimal_index)
