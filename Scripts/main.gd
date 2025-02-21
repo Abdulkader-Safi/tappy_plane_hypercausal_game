@@ -1,6 +1,7 @@
 extends Node
 
 @export var obstacle: PackedScene
+@export var coin: PackedScene
 
 var dynamic_object_speed: int = 700
 var health_decrease: int = 3
@@ -35,3 +36,10 @@ func _on_spawner_timer_timeout():
 	if random == 1:
 		obstacle_instance.position.y = 800
 		obstacle_instance.rotation_degrees = 180
+
+func _on_coin_timer_timeout():
+	var random_position: int = randi() % 3
+	var coin_instance: Area2D = coin.instantiate()
+	$Coins.add_child(coin_instance)
+	coin_instance.position.y = 280 + random_position * 200
+	coin_instance.position.x = spawned_object_position_x
