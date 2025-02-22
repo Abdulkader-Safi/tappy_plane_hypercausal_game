@@ -50,6 +50,12 @@ func _on_coin_timer_timeout():
 		return
 
 	var coin_instance: Area2D = coin.instantiate()
+	coin_instance.body_entered.connect(_on_coin_collided.bind(coin_instance))
 	$Coins.add_child(coin_instance)
 	coin_instance.position.y = 280 + random_position * 200
 	coin_instance.position.x = spawned_object_position_x
+
+func _on_coin_collided(body: Node2D, coin_instance: Area2D):
+	if body.is_in_group("Player"):
+		health += 4
+		coin_instance.queue_free()

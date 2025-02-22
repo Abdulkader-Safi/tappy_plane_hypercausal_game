@@ -6,11 +6,13 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xa4nc"]
 radius = 41.0488
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D" groups=["Player"]]
 position = Vector2(170, 480)
 mass = 2.2
 gravity_scale = 1.6
 continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_jbypb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
