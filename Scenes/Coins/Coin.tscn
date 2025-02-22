@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd0w2xl8qp37b"]
+[gd_scene load_steps=7 format=3 uid="uid://cd0w2xl8qp37b"]
 
 [ext_resource type="Texture2D" uid="uid://dyh8c0jxaqf5f" path="res://Assets/Coin.png" id="1_1rr6i"]
+[ext_resource type="Script" path="res://Scenes/Coins/coin.gd" id="1_fi6ju"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mukg6"]
 radius = 78.0064
@@ -91,6 +92,7 @@ _data = {
 
 [node name="Coin" type="Area2D" groups=["DynamicObject"]]
 scale = Vector2(0.5, 0.5)
+script = ExtResource("1_fi6ju")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_1rr6i")

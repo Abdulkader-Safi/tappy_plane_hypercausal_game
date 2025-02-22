@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://crsoq6pjcfcgk"]
+[gd_scene load_steps=15 format=3 uid="uid://crsoq6pjcfcgk"]
 
 [ext_resource type="Texture2D" uid="uid://b68t16wnq5i4b" path="res://Assets/Background.png" id="1_1jfdm"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tu8cd"]
@@ -6,8 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://bdksvhnpme8iw" path="res://Scenes/Player/Player.tscn" id="4_otvpn"]
 [ext_resource type="FontFile" uid="uid://rhpbrypeoca3" path="res://Assets/kenvector_future.ttf" id="5_eehmu"]
 [ext_resource type="PackedScene" uid="uid://dyld5tri8qyih" path="res://Scenes/Obstacles/Obstacle.tscn" id="6_8uogm"]
+[ext_resource type="AudioStream" uid="uid://cy8upnhopoxoy" path="res://Assets/CoinCollected.ogg" id="7_b4fkv"]
 [ext_resource type="PackedScene" uid="uid://cd0w2xl8qp37b" path="res://Scenes/Coins/Coin.tscn" id="7_p0i17"]
 [ext_resource type="Script" path="res://Scripts/game_over.gd" id="8_1eayn"]
+[ext_resource type="AudioStream" uid="uid://bdnh33lqd3cdh" path="res://Assets/GameOver.ogg" id="8_q6ay8"]
+[ext_resource type="AudioStream" uid="uid://huwjw01xywem" path="res://Assets/Music.wav" id="11_f611w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uplfy"]
 size = Vector2(1600, 20)
@@ -45,6 +48,13 @@ position = Vector2(1200, 0)
 texture = ExtResource("1_1jfdm")
 
 [node name="Player" parent="." instance=ExtResource("4_otvpn")]
+
+[node name="CoinCollected" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("7_b4fkv")
+
+[node name="GameOver" type="AudioStreamPlayer2D" parent="Player"]
+process_mode = 3
+stream = ExtResource("8_q6ay8")
 
 [node name="Obstacles" type="Node" parent="."]
 
@@ -163,6 +173,11 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("5_eehmu")
 theme_override_font_sizes/font_size = 100
 text = "Game Over!"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("11_f611w")
+autoplay = true
 
 [connection signal="timeout" from="SpawnerTimer" to="." method="_on_spawner_timer_timeout"]
 [connection signal="timeout" from="CoinTimer" to="." method="_on_coin_timer_timeout"]

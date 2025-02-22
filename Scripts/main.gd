@@ -63,7 +63,9 @@ func _on_coin_timer_timeout():
 
 func _on_coin_collided(body: Node2D, coin_instance: Area2D):
 	if body.is_in_group("Player"):
+		$Player/CoinCollected.play()
 		health += 4
+		score += 10
 		coin_instance.get_node("AnimationPlayer").play("CoinCollected")
 		# coin_instance.queue_free()
 
@@ -73,5 +75,6 @@ func _on_obstacle_collided(body: Node2D):
 
 
 func game_over():
+	$Player/GameOver.play()
 	$GameOver.show()
 	get_tree().paused = true
