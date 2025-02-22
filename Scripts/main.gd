@@ -10,6 +10,9 @@ var last_obstacle_position: String
 var health: float = 100
 var score: float = 0.0
 
+func _ready():
+	$GameOver.hide()
+
 func _process(delta):
 	# position.x -= delta * dynamic_object_speed
 	for dynamic_object in get_tree().get_nodes_in_group("DynamicObject"):
@@ -18,16 +21,19 @@ func _process(delta):
 	if health > 0:
 		health -= health_decrease * delta
 		$UI/HealthBar.value = health
+	else:
+		game_over()
 
 	score += delta
 	var formatted_score: String = str(score)
 	var decimal_index = formatted_score.find(".")
-	formatted_score = formatted_score.left(decimal_index + 3)
+	formatted_score = formatted_score.left(decimal_index)
 	$UI/HealthBar/ScoreLabel.text = formatted_score
 
 func _on_spawner_timer_timeout():
 	var random: int = randi() % 2
 	var obstacle_instance: Area2D = obstacle.instantiate()
+	obstacle_instance.body_entered.connect(_on_obstacle_collided)
 	$Obstacles.add_child(obstacle_instance)
 	obstacle_instance.position.x = spawned_object_position_x
 
@@ -59,3 +65,12 @@ func _on_coin_collided(body: Node2D, coin_instance: Area2D):
 	if body.is_in_group("Player"):
 		health += 4
 		coin_instance.queue_free()
+
+func _on_obstacle_collided(body: Node2D):
+	if body.is_in_group("Player"):
+		health = 0
+
+
+func game_over():
+	$GameOver.show()
+	get_tree().paused = true
